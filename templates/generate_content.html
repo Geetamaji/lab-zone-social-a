@@ -1,0 +1,205 @@
+{% extends "base.html" %} {% block title %}Generate Content - AI Social Media
+Automation{% endblock %} {% block content %}
+<div class="py-12">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-white mb-2">
+        Generate Social Media Content
+      </h1>
+      <p class="text-gray-400">
+        Let AI create engaging posts for your {{ business.name }}
+      </p>
+    </div>
+
+    <!-- Generation Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <!-- Generate Button -->
+      <div class="lg:col-span-1">
+        <div
+          class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg p-8 text-center h-full flex flex-col justify-center"
+        >
+          <div class="text-5xl mb-4">✨</div>
+          <h2 class="text-2xl font-bold text-white mb-4">Ready to Generate?</h2>
+          <p class="text-indigo-100 mb-6">
+            Click below to let AI create a unique social media post tailored to
+            your business
+          </p>
+          <form method="POST" class="flex flex-col gap-4">
+            <button
+              type="submit"
+              class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition w-full"
+            >
+              Generate Post
+            </button>
+          </form>
+          <p class="text-indigo-200 text-xs mt-4">Uses Google Gemini AI</p>
+        </div>
+      </div>
+
+      <!-- Business Info -->
+      <div class="lg:col-span-2">
+        <div class="bg-gray-800 rounded-lg border border-gray-700 p-6 h-full">
+          <h3 class="text-white font-bold mb-4 text-lg">Business Details</h3>
+          <div class="space-y-3 text-sm">
+            <div>
+              <label class="text-gray-400">Business Name</label>
+              <p class="text-white font-semibold">{{ business.name }}</p>
+            </div>
+            <div>
+              <label class="text-gray-400">Industry</label>
+              <p class="text-white font-semibold">{{ business.industry }}</p>
+            </div>
+            <div>
+              <label class="text-gray-400">Tone</label>
+              <p class="text-white font-semibold">{{ business.tone }}</p>
+            </div>
+            <div>
+              <label class="text-gray-400">Target Audience</label>
+              <p class="text-white font-semibold">
+                {{ business.target_audience }}
+              </p>
+            </div>
+            {% if business.description %}
+            <div>
+              <label class="text-gray-400">Description</label>
+              <p class="text-white text-sm line-clamp-2">
+                {{ business.description }}
+              </p>
+            </div>
+            {% endif %}
+          </div>
+          <a
+            href="/setup"
+            class="text-indigo-400 hover:text-indigo-300 text-sm font-semibold mt-4 inline-block"
+          >
+            Edit Profile →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generated Content Display -->
+    {% if content or error_message %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-8">
+      {% if error_message %}
+      <div
+        class="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded-lg mb-6"
+      >
+        <p class="font-semibold mb-2">⚠️ Note</p>
+        <p>{{ error_message }}</p>
+      </div>
+      {% endif %} {% if content %}
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-white mb-6">Generated Content</h2>
+
+        <!-- Topic -->
+        <div class="mb-6">
+          <label
+            class="text-gray-400 text-sm font-semibold uppercase tracking-wide"
+            >Topic</label
+          >
+          <div class="bg-gray-900 rounded-lg p-4 mt-2 border border-gray-700">
+            <h3 class="text-indigo-400 font-bold text-xl">
+              {{ content.topic }}
+            </h3>
+          </div>
+        </div>
+
+        <!-- Caption -->
+        <div class="mb-6">
+          <label
+            class="text-gray-400 text-sm font-semibold uppercase tracking-wide"
+            >Caption</label
+          >
+          <div class="bg-gray-900 rounded-lg p-4 mt-2 border border-gray-700">
+            <p class="text-white text-lg leading-relaxed whitespace-pre-wrap">
+              {{ content.caption }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Hashtags -->
+        <div class="mb-8">
+          <label
+            class="text-gray-400 text-sm font-semibold uppercase tracking-wide"
+            >Hashtags</label
+          >
+          <div class="flex flex-wrap gap-2 mt-3">
+            {% for hashtag in content.hashtags.split() %}
+            <span
+              class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition"
+            >
+              {{ hashtag }}
+            </span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-4 pt-4 border-t border-gray-700">
+          <button
+            onclick="copyToClipboard()"
+            class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center justify-center gap-2"
+          >
+            <span>📋</span> Copy All
+          </button>
+          <form method="POST" class="flex-1">
+            <button
+              type="submit"
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center justify-center gap-2"
+            >
+              <span>🔄</span> Generate New
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <script>
+      function copyToClipboard() {
+        const topic = "{{ content.topic }}";
+        const caption = "{{ content.caption | replace('\n', '\\n') }}";
+        const hashtags = "{{ content.hashtags }}";
+
+        const fullText = `${topic}\n\n${caption}\n\n${hashtags}`;
+
+        navigator.clipboard
+          .writeText(fullText)
+          .then(() => {
+            alert("Content copied to clipboard!");
+          })
+          .catch((err) => {
+            console.error("Failed to copy:", err);
+          });
+      }
+    </script>
+    {% else %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-12 text-center">
+      <div class="text-6xl mb-4">📝</div>
+      <h3 class="text-xl font-bold text-white mb-2">
+        No Content Generated Yet
+      </h3>
+      <p class="text-gray-400 mb-4">
+        Click the "Generate Post" button to create your first social media
+        content
+      </p>
+    </div>
+    {% endif %}
+
+    <!-- Tips -->
+    <div class="mt-8 bg-gray-800 rounded-lg border border-gray-700 p-6">
+      <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+        <span>💡</span> Tips for Best Results
+      </h3>
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-400 text-sm">
+        <li>• AI generates unique content each time</li>
+        <li>• Copy and customize as needed</li>
+        <li>• Update your profile for better ideas</li>
+        <li>• Use generated hashtags for reach</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

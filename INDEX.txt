@@ -1,0 +1,306 @@
+"""
+AI Social Media Automation Flask Application
+==============================================
+
+Quick Reference Guide
+
+PROJECT LOCATION: C:\Users\SADANAND\ai-social-media-automation\
+
+MAIN FILES:
+- app.py                      Main Flask application (14.5 KB)
+- requirements.txt            Python dependencies
+- .env.example               Configuration template
+- README.md                  Full documentation (7.8 KB)
+- SETUP.md                   Quick setup guide (3.5 KB)
+- COMPLETE_SETUP.md          Detailed setup (11 KB)
+- setup.bat                  Windows automated setup script
+
+TEMPLATES (HTML):
+- templates/base.html                 Base layout with navigation
+- templates/index.html                Dashboard home page
+- templates/business_setup.html       Business profile form
+- templates/generate_content.html     Content generation page
+- templates/content_history.html      Content history view
+
+DIRECTORIES:
+- static/css/                         Custom CSS styles folder
+- templates/                          HTML templates folder
+
+=====================================
+FEATURES IMPLEMENTED
+=====================================
+
+✅ Flask Web Server
+  - Running on http://127.0.0.1:5000
+  - Auto-reload in development
+  - Error handling
+
+✅ SQLite Database
+  - business table (name, industry, tone, audience, description)
+  - content table (topic, caption, hashtags)
+  - Auto-initialization
+  - Foreign key relationships
+
+✅ Business Profile Management
+  - Create and edit business details
+  - Store preferences for AI content generation
+  - Form validation
+
+✅ AI Content Generation
+  - Google Gemini API integration
+  - Generates: Topic, Caption, Hashtags
+  - Context-aware based on business details
+  - Error handling with fallback
+
+✅ Content Management
+  - Save generated posts to database
+  - View all content history
+  - Copy to clipboard
+  - Delete unwanted posts
+
+✅ Modern Dark Dashboard
+  - Tailwind CSS styling
+  - Responsive design (mobile, tablet, desktop)
+  - Dark theme (gray-900 background)
+  - Smooth animations
+  - Flash messages for feedback
+
+✅ API Endpoints
+  - POST /api/generate - Generate content
+  - GET /api/business - Get business profile
+  - GET /api/content - Get all content
+
+=====================================
+TECHNOLOGY STACK
+=====================================
+
+Backend:
+  - Python 3.7+
+  - Flask 2.3.3
+  - SQLite 3
+  - google-generativeai 0.3.0
+  - python-dotenv 1.0.0
+  - Werkzeug 2.3.7
+
+Frontend:
+  - HTML5
+  - Tailwind CSS (CDN)
+  - Responsive Design
+
+API:
+  - Google Gemini AI
+
+Database:
+  - SQLite (no external setup needed)
+
+=====================================
+QUICK START (5 MINUTES)
+=====================================
+
+1. Open Command Prompt and navigate:
+   cd C:\Users\SADANAND\ai-social-media-automation
+
+2. Run setup script:
+   setup.bat
+
+3. Edit .env file:
+   - Open .env
+   - Add your Gemini API key
+   - Save
+
+4. Start application:
+   python app.py
+
+5. Open browser:
+   http://127.0.0.1:5000
+
+6. Create business profile
+7. Generate your first post!
+
+=====================================
+ROUTES
+=====================================
+
+GET  /                   Dashboard home
+GET  /setup              Business setup form
+POST /setup              Save business profile
+GET  /generate           Content generation page
+POST /generate           Generate new content
+GET  /history            View content history
+POST /delete/<id>        Delete content
+
+API Routes:
+POST /api/generate       Generate content (JSON)
+GET  /api/business       Get business profile (JSON)
+GET  /api/content        Get all content (JSON)
+
+=====================================
+FILES BY SIZE
+=====================================
+
+app.py                     14.5 KB  ⭐ Main application
+COMPLETE_SETUP.md          11.0 KB  📋 Detailed guide
+README.md                  7.8 KB   📖 Full documentation
+templates/business_setup   8.3 KB   📝 Business form
+templates/generate_content 8.0 KB   ✨ Generation page
+templates/index.html       6.4 KB   🏠 Dashboard
+requirements.txt           81 B     📦 Dependencies
+.env.example              360 B     ⚙️ Config template
+
+=====================================
+DEPENDENCIES
+=====================================
+
+Core:
+  - Flask==2.3.3           Web framework
+  - google-generativeai==0.3.0  Gemini AI API
+  - python-dotenv==1.0.0   Environment variables
+  - Werkzeug==2.3.7        WSGI utilities
+
+Database:
+  - sqlite3 (built-in)     Lightweight database
+
+Frontend:
+  - Tailwind CSS (CDN)     CSS framework
+
+=====================================
+CONFIGURATION
+=====================================
+
+Create .env file from .env.example:
+
+GEMINI_API_KEY=your_api_key_here
+FLASK_ENV=development
+FLASK_DEBUG=True
+FLASK_HOST=127.0.0.1
+FLASK_PORT=5000
+SECRET_KEY=your-secret-key
+
+Get Gemini API Key:
+https://makersuite.google.com/app/apikey
+
+=====================================
+DATABASE SCHEMA
+=====================================
+
+business table:
+- id (PRIMARY KEY)
+- name (TEXT)
+- industry (TEXT)
+- tone (TEXT)
+- target_audience (TEXT)
+- description (TEXT)
+- created_at (TIMESTAMP)
+- updated_at (TIMESTAMP)
+
+content table:
+- id (PRIMARY KEY)
+- business_id (FOREIGN KEY)
+- topic (TEXT)
+- caption (TEXT)
+- hashtags (TEXT)
+- created_at (TIMESTAMP)
+
+=====================================
+TROUBLESHOOTING
+=====================================
+
+Python not found:
+  → Install from https://www.python.org/downloads/
+
+Module not found:
+  → pip install -r requirements.txt
+
+Port already in use:
+  → Change FLASK_PORT in .env
+
+API Key errors:
+  → Check .env file has correct key
+  → Restart Flask app
+
+Database errors:
+  → Delete database.db
+  → Restart app (auto-creates fresh DB)
+
+=====================================
+NEXT STEPS
+=====================================
+
+1. ✅ Download/extract project
+2. ✅ Files already created
+3. 📌 Run setup.bat
+4. 📌 Edit .env with API key
+5. 📌 Run: python app.py
+6. 📌 Open: http://127.0.0.1:5000
+7. 📌 Create business profile
+8. 📌 Generate first post
+9. 📌 Copy to social media
+
+=====================================
+ADDITIONAL RESOURCES
+=====================================
+
+Documentation:
+  - README.md - Full documentation
+  - SETUP.md - Quick setup guide
+  - COMPLETE_SETUP.md - Detailed setup
+
+Scripts:
+  - setup.bat - Windows setup (auto-install)
+  - verify_installation.sh - Verify all files
+
+API Docs:
+  - Flask: https://flask.palletsprojects.com/
+  - Gemini: https://ai.google.dev/
+  - Tailwind: https://tailwindcss.com/
+
+=====================================
+PRODUCTION NOTES
+=====================================
+
+Before deploying to production:
+
+1. Change SECRET_KEY in .env
+2. Set FLASK_ENV=production
+3. Set FLASK_DEBUG=False
+4. Use proper WSGI server (gunicorn)
+5. Setup proper database (PostgreSQL)
+6. Enable HTTPS
+7. Setup proper error logging
+8. Rate limit API calls
+9. Add authentication
+10. Setup backups
+
+=====================================
+SUPPORT
+=====================================
+
+For detailed help:
+  - See README.md (full documentation)
+  - Check COMPLETE_SETUP.md (detailed setup)
+  - Review error messages in console
+  - Verify API key is correct
+  - Try restarting the app
+
+For bugs:
+  - Check Flask console output
+  - Delete database.db if needed
+  - Verify all dependencies installed
+  - Check .env configuration
+
+=====================================
+VERSION INFO
+=====================================
+
+Created: 2024
+Technology: Python Flask + Google Gemini
+UI: Tailwind CSS Dark Theme
+Database: SQLite
+Status: ✅ Ready for Use
+
+=====================================
+"""
+
+# This is a reference guide - all implementation is in app.py
+# Start here: python app.py
+# Then open: http://127.0.0.1:5000

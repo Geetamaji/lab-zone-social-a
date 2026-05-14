@@ -1,0 +1,394 @@
+{% extends "base.html" %} {% block title %}Business Setup - AI Social Media
+Automation{% endblock %} {% block content %}
+<div class="py-12">
+  <div class="max-w-2xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-white mb-2">
+        {% if business %} Edit Business Profile {% else %} Set Up Your Business
+        {% endif %}
+      </h1>
+      <p class="text-gray-400">
+        Configure your business details so we can generate relevant content
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form
+      method="POST"
+      class="bg-gray-800 rounded-lg border border-gray-700 p-8 space-y-6"
+    >
+      <!-- Business Name -->
+      <div>
+        <label for="name" class="block text-white font-semibold mb-2"
+          >Business Name</label
+        >
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{ business.name if business else '' }}"
+          placeholder="e.g., Tech Startup Inc."
+          class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          required
+        />
+        <p class="text-gray-400 text-sm mt-1">
+          The name of your business or brand
+        </p>
+      </div>
+
+      <!-- Industry -->
+      <div>
+        <label for="industry" class="block text-white font-semibold mb-2"
+          >Industry</label
+        >
+        <select
+          id="industry"
+          name="industry"
+          class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          required
+        >
+          <option value="">Select an industry...</option>
+          <option
+            value="Technology"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Technology"
+            %}selected{%
+            endif
+            %}
+          >
+            Technology
+          </option>
+          <option
+            value="E-Commerce"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="E-Commerce"
+            %}selected{%
+            endif
+            %}
+          >
+            E-Commerce
+          </option>
+          <option
+            value="Health & Wellness"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Health & Wellness"
+            %}selected{%
+            endif
+            %}
+          >
+            Health & Wellness
+          </option>
+          <option
+            value="Finance"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Finance"
+            %}selected{%
+            endif
+            %}
+          >
+            Finance
+          </option>
+          <option
+            value="Education"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Education"
+            %}selected{%
+            endif
+            %}
+          >
+            Education
+          </option>
+          <option
+            value="Entertainment"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Entertainment"
+            %}selected{%
+            endif
+            %}
+          >
+            Entertainment
+          </option>
+          <option
+            value="Food & Beverage"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Food & Beverage"
+            %}selected{%
+            endif
+            %}
+          >
+            Food & Beverage
+          </option>
+          <option
+            value="Fashion"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Fashion"
+            %}selected{%
+            endif
+            %}
+          >
+            Fashion
+          </option>
+          <option
+            value="Real Estate"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Real Estate"
+            %}selected{%
+            endif
+            %}
+          >
+            Real Estate
+          </option>
+          <option
+            value="Other"
+            {%
+            if
+            business
+            and
+            business.industry=""
+            ="Other"
+            %}selected{%
+            endif
+            %}
+          >
+            Other
+          </option>
+        </select>
+        <p class="text-gray-400 text-sm mt-1">
+          Choose the industry that best describes your business
+        </p>
+      </div>
+
+      <!-- Tone -->
+      <div>
+        <label for="tone" class="block text-white font-semibold mb-2"
+          >Tone of Voice</label
+        >
+        <select
+          id="tone"
+          name="tone"
+          class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          required
+        >
+          <option value="">Select a tone...</option>
+          <option
+            value="Professional"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Professional"
+            %}selected{%
+            endif
+            %}
+          >
+            Professional
+          </option>
+          <option
+            value="Friendly"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Friendly"
+            %}selected{%
+            endif
+            %}
+          >
+            Friendly
+          </option>
+          <option
+            value="Casual"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Casual"
+            %}selected{%
+            endif
+            %}
+          >
+            Casual
+          </option>
+          <option
+            value="Humorous"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Humorous"
+            %}selected{%
+            endif
+            %}
+          >
+            Humorous
+          </option>
+          <option
+            value="Inspirational"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Inspirational"
+            %}selected{%
+            endif
+            %}
+          >
+            Inspirational
+          </option>
+          <option
+            value="Educational"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Educational"
+            %}selected{%
+            endif
+            %}
+          >
+            Educational
+          </option>
+          <option
+            value="Sophisticated"
+            {%
+            if
+            business
+            and
+            business.tone=""
+            ="Sophisticated"
+            %}selected{%
+            endif
+            %}
+          >
+            Sophisticated
+          </option>
+        </select>
+        <p class="text-gray-400 text-sm mt-1">How should your content sound?</p>
+      </div>
+
+      <!-- Target Audience -->
+      <div>
+        <label for="target_audience" class="block text-white font-semibold mb-2"
+          >Target Audience</label
+        >
+        <input
+          type="text"
+          id="target_audience"
+          name="target_audience"
+          value="{{ business.target_audience if business else '' }}"
+          placeholder="e.g., Young professionals aged 25-40"
+          class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          required
+        />
+        <p class="text-gray-400 text-sm mt-1">
+          Describe your ideal customer or audience
+        </p>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-white font-semibold mb-2"
+          >Business Description</label
+        >
+        <textarea
+          id="description"
+          name="description"
+          rows="4"
+          placeholder="Describe what your business does, what makes it unique, and any other relevant details..."
+          class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+        >
+{{ business.description if business else '' }}</textarea
+        >
+        <p class="text-gray-400 text-sm mt-1">
+          Help us understand your business better
+        </p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex gap-4 pt-6">
+        <button
+          type="submit"
+          class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2"
+        >
+          <span>✓</span>
+          {% if business %} Update Profile {% else %} Create Profile {% endif %}
+        </button>
+        <a
+          href="/"
+          class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition text-center"
+        >
+          Cancel
+        </a>
+      </div>
+    </form>
+
+    <!-- Tips -->
+    <div class="mt-8 bg-gray-800 rounded-lg border border-gray-700 p-6">
+      <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+        <span>💡</span> Tips for Better Content
+      </h3>
+      <ul class="space-y-2 text-gray-400 text-sm">
+        <li>
+          • <strong class="text-gray-300">Be specific:</strong> The more details
+          you provide, the better AI can tailor content
+        </li>
+        <li>
+          • <strong class="text-gray-300">Consistent tone:</strong> Choose a
+          tone that matches your brand voice
+        </li>
+        <li>
+          • <strong class="text-gray-300">Know your audience:</strong> Specific
+          audience details help generate relevant posts
+        </li>
+        <li>
+          • <strong class="text-gray-300">Update regularly:</strong> Refresh
+          your profile if your business evolves
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
